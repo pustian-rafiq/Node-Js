@@ -3,7 +3,8 @@ var  mysql = require('mysql');
 var DatabaseConnectionConfig = {
     host : "localhost",
     user: "root",
-    password: ""
+    password: "",
+    database: "node_school"
 }
 
 var con = mysql.createConnection(DatabaseConnectionConfig);
