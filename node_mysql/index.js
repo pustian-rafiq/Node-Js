@@ -14,5 +14,18 @@ con.connect(function(error){
     }
     else {
         console.log("Database Connection Success");
+        insertData(con);
     }
 });
+
+function insertData(con){
+    let sqlQuery =" INSERT INTO `student_tbl`(`name`, `roll`, `class`, `phone`, `city`) VALUES ('Rafiqul Islam','100','Nine','01991166550','Satkhira')";
+
+    con.query(sqlQuery, (error) =>{
+        if(error){
+            console.log("Data not inserted");
+        }else{
+            console.log("Data inserted successfully");
+        }
+    });
+}
