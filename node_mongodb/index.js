@@ -12,7 +12,11 @@ MongoClient.connect(URL, config, function(error, MyMongoCLient){
         //deleteAllData(MyMongoCLient)
         //findOneWithoutCondition(MyMongoCLient)
         //findAllData(MyMongoCLient)
-        findAllDataByProjection(MyMongoCLient)
+        //findAllDataByProjection(MyMongoCLient)
+        //findAllDataByQuery(MyMongoCLient)
+        //findAllDataByLimit(MyMongoCLient)
+        //findAllDataByLimit(MyMongoCLient)
+        updateOneData(MyMongoCLient)
     }
 });
 
@@ -113,6 +117,75 @@ function findAllDataByProjection(MyMongoCLient){
     var itemProjection = { projection:{Roll:1,City:1 } } //projection er vitor j field gulo dekhabo tader value 1 dbo r na dekhate caile 0 dbo
 
     mycollection.find(dataObj,itemProjection).toArray(function(error,result){
+        if(error){
+            console.log("Data not found");
+        }else{
+            console.log(result);
+         
+        }
+    });
+}
+
+//Find multiple Item from database using condition-- cd node_mongodb   npm start
+
+function findAllDataByQuery(MyMongoCLient){
+    var myDatabase = MyMongoCLient.db('school');
+
+    var mycollection = myDatabase.collection('students');
+    var queryCondition = {Roll:"103", City:"Dhaka"}
+     
+
+    mycollection.find(queryCondition).toArray(function(error,result){
+        if(error){
+            console.log("Data not found");
+        }else{
+            console.log(result);
+         
+        }
+    });
+}
+
+//Find multiple Item from database using limit-- cd node_mongodb   npm start
+
+function findAllDataByLimit(MyMongoCLient){
+    var myDatabase = MyMongoCLient.db('school');
+
+    var mycollection = myDatabase.collection('students');
+  
+    mycollection.find().limit(2).toArray(function(error,result){
+        if(error){
+            console.log("Data not found");
+        }else{
+            console.log(result);
+         
+        }
+    });
+}
+//Find all Item from database using sorting-- cd node_mongodb   npm start
+
+function findAllDataByLimit(MyMongoCLient){
+    var myDatabase = MyMongoCLient.db('school');
+
+    var mycollection = myDatabase.collection('students');
+   var sortIten = { Roll: 1}//1 for ascending order and -1 for descending order
+    mycollection.find().sort(sortIten).toArray(function(error,result){
+        if(error){
+            console.log("Data not found");
+        }else{
+            console.log(result);
+         
+        }
+    });
+}
+//Update One Item from database using updateOne()-- cd node_mongodb   npm start
+
+function updateOneData(MyMongoCLient){
+    var myDatabase = MyMongoCLient.db('school');
+    var mycollection = myDatabase.collection('students');
+
+    var updatedData = { Roll: "102"} 
+    var updateNewValue = {$set:{Name:"Rafiqul Islam", City:"Pabna"}}
+    mycollection.updateOne(updatedData,updateNewValue,function(error,result){
         if(error){
             console.log("Data not found");
         }else{
