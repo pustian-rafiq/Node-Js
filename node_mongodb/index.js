@@ -1,13 +1,13 @@
 var MongoClient = require('mongodb').MongoClient;
 
-var URL = "mongodb+srv://rafiqulDemo:8gn4tSzqgViXZrZ@cluster0.vqwce.mongodb.net?retryWrites=true&w=majority";
+var URL = "mongodb://127.0.0.1:27017/";
 var config = { useUnifiedTopology: true };
 MongoClient.connect(URL, config, function(error, MyMongoCLient){
     if(error){
         console.log("Database connection not successful");
     }else{
         console.log("Database connection successful");
-        //insertData(MyMongoCLient);
+        insertData(MyMongoCLient);
         //deleteOneData(MyMongoCLient)
         //deleteAllData(MyMongoCLient)
         //findOneWithoutCondition(MyMongoCLient)
@@ -16,7 +16,9 @@ MongoClient.connect(URL, config, function(error, MyMongoCLient){
         //findAllDataByQuery(MyMongoCLient)
         //findAllDataByLimit(MyMongoCLient)
         //findAllDataByLimit(MyMongoCLient)
-        updateOneData(MyMongoCLient)
+        //updateOneData(MyMongoCLient)
+        //createNewCollection(MyMongoCLient)
+        //deleteCollection(MyMongoCLient)
     }
 });
 
@@ -25,7 +27,7 @@ function insertData(MyMongoCLient){
     var myDatabase = MyMongoCLient.db('school');
 
     var mycollection = myDatabase.collection('students');
-    var myData ={Name:"Rabiul Islam",Roll:"103",Class:"Six",City:"Khulna"};
+    var myData ={Name:"Ruhan Islam",Roll:"102",Class:"Ten",City:"Satkhira"};
 
     mycollection.insertOne(myData,function(error){
         if(error){
@@ -192,5 +194,22 @@ function updateOneData(MyMongoCLient){
             console.log(result);
          
         }
+    });
+}
+//Create new collection in database
+
+function createNewCollection(MyMongoCLient){
+    var myDatabase = MyMongoCLient.db('school');
+    myDatabase.createCollection("teachers",function(error,result){
+        console.log(result);
+    });
+}
+
+//Delete any collection from database
+
+function deleteCollection(MyMongoCLient){
+    var myDatabase = MyMongoCLient.db('school');
+    myDatabase.dropCollection("teachers",function(error,result){
+        console.log(result);//return true or false
     });
 }
